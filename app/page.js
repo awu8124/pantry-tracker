@@ -33,6 +33,7 @@ export default function Home() {
   const [inventory, setInventory] = useState([])
   const [open, setOpen] = useState(false)
   const [itemName, setItemName] = useState('')
+
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, 'inventory'))
     const docs = await getDocs(snapshot)
@@ -46,6 +47,7 @@ export default function Home() {
   useEffect(() => {
     updateInventory()
   }, [])
+
   const addItem = async (item) => {
     const docRef = doc(collection(firestore, 'inventory'), item)
     const docSnap = await getDoc(docRef)
@@ -151,6 +153,9 @@ export default function Home() {
             <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
               Quantity: {quantity}
             </Typography>
+            <Button variant="contained" onClick={() => addItem(name)}>
+              Add
+            </Button>
             <Button variant="contained" onClick={() => removeItem(name)}>
               Remove
             </Button>
